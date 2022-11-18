@@ -1,16 +1,25 @@
 import pytest
-from selenium.webdriver.support.wait import WebDriverWait
+import json
 
-from framework_from_scratch.page_objects.login_page import LoginPage
-from framework_from_scratch.utilities.config_parser import ReadConfig
-from framework_from_scratch.utilities.driver_factory import DriverFactory
+from framework_from_scratch_parsing.page_objects.login_page import LoginPage
+from framework_from_scratch_parsing.utilities.config_parser import ReadConfig
+from framework_from_scratch_parsing.utilities.configurations import Configuration
+from framework_from_scratch_parsing.utilities.driver_factory import DriverFactory
 
 
 @pytest.fixture(scope='session')
-def create_driver():
-    driver = DriverFactory.create_driver(driver_id=ReadConfig.get_driver_id())
+def env():
+    with open(
+            '/framework_from_scratch_parsing/configurations/configuration.json') as file:
+        env_dict = json.loads(file.read())
+    return Configuration(**env_dict)
+
+
+@pytest.fixture(scope='session')
+def create_driver(env):
+    driver = DriverFactory.create_driver(driver_id=env.browser_id)
     driver.maximize_window()
-    driver.get(ReadConfig.get_base_url())
+    driver.get(env.base_url)
     yield driver
     driver.quit()
 

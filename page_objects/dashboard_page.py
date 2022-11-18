@@ -1,4 +1,4 @@
-from framework_from_scratch.utilities.web_ui.base_page import BasePage
+from framework_from_scratch_parsing.utilities.web_ui.base_page import BasePage
 from selenium.webdriver.common.by import By
 
 

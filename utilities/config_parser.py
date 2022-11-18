@@ -1,6 +1,6 @@
 import configparser
 
-from framework_from_scratch.CONSTANTS import ROOT_DIR
+from framework_from_scratch_parsing.CONSTANTS import ROOT_DIR
 
 config = configparser.RawConfigParser()
 config.read(f'{ROOT_DIR}/configurations/configuration.ini')
